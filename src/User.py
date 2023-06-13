@@ -21,6 +21,9 @@ class Location:
     def __repr__(self):
         return f"Location(latitude={self.latitude}, longitude={self.longitude})"
 
+    def to_tuple(self):
+        return self.latitude, self.longitude
+
 
 class User:
     users: dict = {}
