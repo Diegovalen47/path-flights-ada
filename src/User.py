@@ -1,5 +1,6 @@
-from enum import Enum
 import json
+from enum import Enum
+from random import random, SystemRandom
 
 
 class Sex(Enum):
@@ -25,15 +26,37 @@ class Location:
         return self.latitude, self.longitude
 
 
+def get_random_sex():
+    number = random()
+    if number < 0.5:
+        return Sex.FEMENINO
+    else:
+        return Sex.MASCULINO
+
+
+def get_random_genre_preference():
+    number = random()
+    if number < 0.33:
+        return GenderPreference.MASCULINO
+    elif number < 0.66:
+        return GenderPreference.FEMENINO
+    else:
+        return GenderPreference.AMBOS
+
+
+def get_random_location():
+    return Location(SystemRandom().uniform(-1000, 1000), SystemRandom().uniform(-1000, 1000))
+
+
 class User:
-    users: dict = {}
+
+    users: list = []
 
     def __init__(self, id: int, sex: Sex, gender_preference: GenderPreference, location: Location):
         self.id: int = id
         self.sex: Sex = sex
         self.gender_preference: GenderPreference = gender_preference
         self.location: Location = location
-        User.users[id] = self
 
     def __repr__(self):
         return f"User({self.id}, " \
@@ -43,18 +66,20 @@ class User:
 
 
 def load_users():
-    # utilizar esta pagina para generar usuarios aleatorios
-    # https://www.mockaroo.com/
-    f = open('user_list.json')
+    print("Cargando usuarios desde el json...")
+    f = open('users_list.json')
 
     data = json.load(f)
 
     for user in data:
-        User(
+        usuario = User(
             user['id'],
             Sex(user['sex']),
             GenderPreference(user['gender_preference']),
             Location(user['location']['latitude'], user['location']['longitude'])
         )
 
+        User.users.append(usuario)
+
+    print(f"{len(data)} usuarios cargados desde el json")
     f.close()

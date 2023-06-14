@@ -1,12 +1,23 @@
-from User import User, load_users, Sex, GenderPreference, Location
+
+from User import User, load_users
 from ClosestPair import find_closest_compatible_users
+import time
+
 
 load_users()
 
-compatible_users: tuple[float, tuple[User, User]] = find_closest_compatible_users(list(User.users.values()))
+# get the start time
+st = time.time()
+compatible_users: tuple[float, tuple[User, User]] = find_closest_compatible_users(User.users)
+# get the end time
+et = time.time()
 
-print("La pareja de usuarios mas cercana es:")
+# get the execution time
+elapsed_time = et - st
+
+print("La pareja de usuarios compatible mas cercana es:")
 print(f"{compatible_users[1][0]}")
 print("y")
 print(f"{compatible_users[1][1]}")
 print(f"con una distancia de {round(compatible_users[0], 4)}")
+print(f"Con un tiempo de ejecución de: {elapsed_time} segundos, utilizando el algoritmo de pares mas cercanos")
