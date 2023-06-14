@@ -2,7 +2,7 @@ from User import User, compatibles
 from math import dist
 
 
-def closest_pairs(users: list[User]) -> tuple[float, tuple[User, User]]:
+def closest_pair_brute_force(users: list[User]) -> tuple[float, tuple[User, User]]:
     """
     Devuelve la pareja de usuarios mas cercana y la distancia entre ellos
     :param users: lista de usuarios

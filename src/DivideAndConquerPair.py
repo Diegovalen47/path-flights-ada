@@ -2,7 +2,7 @@ from math import dist
 from User import User, compatibles
 
 
-def find_closest_compatible_users(users: list[User]) -> tuple[float, tuple[User, User]]:
+def closest_pair_divide_and_conquer(users: list[User]) -> tuple[float, tuple[User, User]]:
     users.sort(key=lambda x: x.location.latitude)
     return closest_pair(0, len(users) - 1, users)
 
