@@ -65,6 +65,33 @@ class User:
                f"location={self.location})"
 
 
+def compatibles(user1: User, user2: User) -> bool:
+    """
+    Determina si dos usuarios son compatibles teniendo en cuenta
+    su sexo y preferencia de genero
+    """
+
+    # Si user1 es bisexual pero el usuario2 no
+    if user1.gender_preference.name == GenderPreference.AMBOS.name and user2.gender_preference.name != GenderPreference.AMBOS.name:
+        # y la preferencia del user2 es diferente al sexo del user1, no son compatibles
+        if user2.gender_preference.name != user1.sex.name:
+            return False
+    # Si user2 es bisexual pero el user1 no
+    if user2.gender_preference.name == GenderPreference.AMBOS.name and user1.gender_preference.name != GenderPreference.AMBOS.name:
+        # y la preferencia del user1 es diferente al sexo del user2, no son compatibles
+        if user1.gender_preference.name != user2.sex.name:
+            return False
+    # Si a ambos les gusta solo un sexo
+    if user1.gender_preference.name != GenderPreference.AMBOS.name and user2.gender_preference.name != GenderPreference.AMBOS.name:
+        # y la preferencia del user1 es diferente al sexo del user2, no son compatibles
+        if user1.gender_preference.name != user2.sex.name:
+            return False
+        # y la preferencia del user2 es diferente al sexo del user1, no son compatibles
+        if user2.gender_preference.name != user1.sex.name:
+            return False
+    return True
+
+
 def load_users():
     print("Cargando usuarios desde el json...")
     f = open('users_list.json')
