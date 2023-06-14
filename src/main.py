@@ -16,7 +16,7 @@ et = time.time()
 elapsed_time = et - st
 
 print("")
-print("Utilizando el algoritmo de PARES MAS CERCANOS")
+print("Utilizando el algoritmo DIVIDE Y VENCERAS")
 print("La pareja de usuarios compatible mas cercana es:")
 print(f"  {compatible_users_split_pair[1][0]}")
 print(f"  {compatible_users_split_pair[1][1]}")
