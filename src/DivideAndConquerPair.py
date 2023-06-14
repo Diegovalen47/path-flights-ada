@@ -3,8 +3,10 @@ from User import User, compatibles
 
 
 def closest_pair_divide_and_conquer(users: list[User]) -> tuple[float, tuple[User, User]]:
-    users.sort(key=lambda x: x.location.latitude)
-    return closest_pair(0, len(users) - 1, users)
+    # Creamos una copia del arreglo para no afectar el orden original
+    users_x = users.copy()
+    users_x.sort(key=lambda x: x.location.latitude)
+    return closest_pair(0, len(users) - 1, users_x)
 
 
 def closest_pair(i: int, j: int, users: list[User]) -> tuple[float, tuple[User, User]]:

@@ -33,7 +33,7 @@ def create_random_users(quantity):
 # Al generar muestras de usuarios, colocar la cantidad que se desea
 # en el parametro de la funcion save_users
 st = time.time()
-save_users(5000)
+save_users(25)
 et = time.time()
 
 elapsed_time = et - st
