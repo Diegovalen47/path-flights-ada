@@ -1,12 +1,13 @@
 import networkx as nx
 from itertools import combinations, groupby
-from random import SystemRandom, random, choice, sample
+from random import SystemRandom, random, choice, sample, randint
 from Node import Node
 from Edge import Edge
 from Graph import Graph
 from Flight import Flight
 from math import ceil
 import json
+import matplotlib.pyplot as plt
 
 
 def random_world_path_generator(n, p):
@@ -26,9 +27,11 @@ def random_world_path_generator(n, p):
                 G.add_edge(*e)
 
     for (start, end) in G.edges:
-        G.edges[start, end]['weight'] = random()
-
+        G.edges[start, end]['weight'] = randint(0, 20)
+    nx.draw(G, with_labels=True)
+    plt.show()
     return G
+
 
 def create_world_path(nodes_quantity):
     random_graph = random_world_path_generator(nodes_quantity, 0.1)
@@ -41,8 +44,9 @@ def create_world_path(nodes_quantity):
 
     Graph.create_graph()
 
+
 def random_flights_generator():
-    flights_number: int = ceil(SystemRandom().uniform(0.15, 0.2)*Node.nodes_quantity)
+    flights_number: int = ceil(SystemRandom().uniform(0.15, 0.2) * Node.nodes_quantity)
 
     for id in range(flights_number):
         origin, destination = sample(range(Node.nodes_quantity), 2)
@@ -56,11 +60,12 @@ def formatted_graph():
             "id": i,
             "lat": Node.nodes[i].latitude,
             "lon": Node.nodes[i].longitude,
-            "edges": [{ "end": j, "weight": Graph.graph[i][j]} for j in Graph.graph[i].keys()]
+            "edges": [{"end": j, "weight": Graph.graph[i][j]} for j in Graph.graph[i].keys()]
         }
         nodes.append(formatted_node)
 
     return nodes
+
 
 def formatted_flights():
     flights: list = []
@@ -74,6 +79,7 @@ def formatted_flights():
 
     return flights
 
+
 def save_data(formatted_data: list, file_name: str):
     print("Saving data...")
     json_string = json.dumps(formatted_data)
@@ -81,4 +87,3 @@ def save_data(formatted_data: list, file_name: str):
     json_file.write(json_string)
     json_file.close()
     print(f"Data saved in {file_name}")
-

@@ -2,7 +2,6 @@ import Flight
 
 
 class Node:
-
     nodes: dict = {}
     nodes_quantity: int = 0
 
@@ -10,7 +9,7 @@ class Node:
         self.id: int = id
         self.latitude: float = latitude
         self.longitude: float = longitude
-        self.flights: list[Flight] = []
+        self.flights: dict = {}
         Node.nodes[id] = self
         Node.nodes_quantity += 1
 
@@ -21,7 +20,10 @@ class Node:
             return None
 
     def add_flight(self, flight: Flight):
-        self.flights.append(flight)
+        self.flights[flight.id] = flight
+
+    def delete_flight(self, flight: Flight):
+        del self.flights[flight.id]
 
     def __repr__(self):
         return f"Node(id={self.id}, latitude={self.latitude}, longitude={self.longitude})"
