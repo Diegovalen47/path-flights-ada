@@ -45,7 +45,7 @@ def get_random_genre_preference():
 
 
 def get_random_location():
-    return Location(SystemRandom().uniform(-230000, 230000), SystemRandom().uniform(-230000, 230000))
+    return Location(SystemRandom().uniform(-90, 90), SystemRandom().uniform(-180, 180))
 
 
 class User:
