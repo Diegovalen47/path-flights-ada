@@ -20,7 +20,7 @@ class Node:
         else:
             return None
 
-    def set_flights(self, flight: Flight):
+    def add_flight(self, flight: Flight):
         self.flights.append(flight)
 
     def __repr__(self):

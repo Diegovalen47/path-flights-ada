@@ -1,14 +1,15 @@
 import networkx as nx
 from itertools import combinations, groupby
-from random import SystemRandom, random, choice
+from random import SystemRandom, random, choice, sample
 from Node import Node
 from Edge import Edge
 from Graph import Graph
+from Flight import Flight
+from math import ceil
 import json
 
 
 def random_world_path_generator(n, p):
-
     edges = combinations(range(n), 2)
     G = nx.Graph()
     G.add_nodes_from(range(n))
@@ -29,21 +30,27 @@ def random_world_path_generator(n, p):
 
     return G
 
-
 def create_world_path(nodes_quantity):
     random_graph = random_world_path_generator(nodes_quantity, 0.1)
 
     for node in random_graph.nodes:
-        node = Node(node, SystemRandom().uniform(-90, 90), SystemRandom().uniform(-180, 180))
+        Node(node, SystemRandom().uniform(-90, 90), SystemRandom().uniform(-180, 180))
 
     for start, end, weight in random_graph.edges.data('weight'):
-        edge = Edge(start, end, weight)
+        Edge(start, end, weight)
 
     Graph.create_graph()
 
-def save_graph():
-    print("Creating random data...")
-    nodes = []
+def random_flights_generator():
+    flights_number: int = ceil(SystemRandom().uniform(0.15, 0.2)*Node.nodes_quantity)
+
+    for id in range(flights_number):
+        origin, destination = sample(range(Node.nodes_quantity), 2)
+        Flight(id, origin, destination)
+
+
+def formatted_graph():
+    nodes: list = []
     for i in range(Node.nodes_quantity):
         formatted_node = {
             "id": i,
@@ -53,8 +60,25 @@ def save_graph():
         }
         nodes.append(formatted_node)
 
-    json_string = json.dumps(nodes)
-    json_file = open("graph.json", "w")
+    return nodes
+
+def formatted_flights():
+    flights: list = []
+    for flight in Flight.flights.values():
+        formatted_flight = {
+            "id": flight.id,
+            "origin": flight.origin,
+            "destination": flight.destination
+        }
+        flights.append(formatted_flight)
+
+    return flights
+
+def save_data(formatted_data: list, file_name: str):
+    print("Saving data...")
+    json_string = json.dumps(formatted_data)
+    json_file = open(file_name, "w")
     json_file.write(json_string)
     json_file.close()
-    print(f"Graph created and saved in graph.json")
+    print(f"Data saved in {file_name}")
+

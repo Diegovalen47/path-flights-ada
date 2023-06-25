@@ -1,11 +1,12 @@
-from DataGenerator import create_world_path, save_graph
+from DataGenerator import create_world_path, random_flights_generator, formatted_graph, formatted_flights, save_data
 from Graph import Graph
+from Flight import Flight
 
-
-n = 5
+n = 30
 create_world_path(n)
-print(Graph.graph)
-save_graph()
-
-
+print(f'Graph: {Graph.graph}')
+random_flights_generator()
+print(f'Flights: {Flight.flights}')
+save_data(formatted_graph(), "graph.json")
+save_data(formatted_flights(), "flights.json")
 
