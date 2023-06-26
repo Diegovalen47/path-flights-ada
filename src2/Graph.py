@@ -1,4 +1,3 @@
-from Node import Node
 from Edge import Edge
 
 
@@ -8,6 +7,7 @@ class Graph:
 
     @staticmethod
     def create_graph():
+        from Node import Node
         Graph.graph = {i: {} for i in Node.nodes.keys()}
         for egde in Edge.egdes:
             Graph.graph[egde.start][egde.end] = egde.weight
