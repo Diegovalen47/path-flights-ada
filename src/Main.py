@@ -6,6 +6,7 @@ from Node import Node
 from ClosestDivideAndConquer import closest_pair_divide_and_conquer
 from ClosestBruteForce import closest_pair_brute_force
 from time import time
+from Graph import Graph
 
 iterations = 0
 
@@ -55,6 +56,7 @@ if __name__ == '__main__':
     # estructuras de datos
     load_graph_and_nodes()
     load_flights()
+    print(Graph.graph)
 
     print("Seleccione con que metodo desea ejecutar el algoritmo")
     print("1. Fuerza bruta")

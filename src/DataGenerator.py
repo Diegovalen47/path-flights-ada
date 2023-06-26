@@ -16,7 +16,7 @@ PROBABILITY = 0.1
 LATITUDES = (4, 13)
 LONGITUDES = (66, 79)
 # Proporcion de vuelos respecto a la cantidad de nodos
-FLIGHTS_PROPORTION = (0.065, 0.075)
+FLIGHTS_PROPORTION = (0.2, 0.3)
 
 
 def random_world_path_generator(n, p):
@@ -37,8 +37,8 @@ def random_world_path_generator(n, p):
 
     for (start, end) in G.edges:
         G.edges[start, end]['weight'] = SystemRandom().uniform(0.15, 1)*WEIGHT_MAX
-    # nx.draw(G, with_labels=True)
-    # plt.show()
+    nx.draw(G, with_labels=True)
+    plt.show()
     return G
 
 
@@ -146,4 +146,4 @@ if __name__ == '__main__':
     # En una pagina que muestra los vuelos en tiempo real
     # se tomaron muestran de cuantos vuelos hay en un momento determinado
     # transitando colombia, y se promedio el dato
-    generate_data(1000)
+    generate_data(15)
